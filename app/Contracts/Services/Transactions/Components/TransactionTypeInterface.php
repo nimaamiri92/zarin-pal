@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Contracts\Transactions\Components;
+namespace App\Contracts\Services\Transactions\Components;
 
 
 use App\Models\Webservice;

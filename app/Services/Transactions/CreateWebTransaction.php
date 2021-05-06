@@ -3,7 +3,7 @@
 
 namespace App\Services\Transactions;
 
-use App\Services\Transactions\Components\WebTransaction;
+use App\Services\Transactions\TransactionTypes\WebTransaction;
 
 class CreateWebTransaction extends TransactionService
 {

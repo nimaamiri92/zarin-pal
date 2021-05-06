@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Contracts\Webservices;
+namespace App\Contracts\Services\Webservices;
 
 
 interface WebserviceServiceInterface

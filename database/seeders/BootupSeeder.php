@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Transaction;
+use App\Models\Webservice;
+use Database\Factories\TransactionFactory;
 use Illuminate\Database\Seeder;
 
 class BootupSeeder extends Seeder
@@ -13,9 +16,11 @@ class BootupSeeder extends Seeder
      */
     public function run()
     {
-
-        Transaction::factory()
-            ->count(100)
+        Webservice::factory()->count(500)
+            ->has(
+                TransactionFactory::times(random_int(1,10000))
+            )
             ->create();
+
     }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
+use App\Http\Resources\LastMonthTransactionStatisticsResource;
 use App\Http\Resources\PosTransactionResource;
 use App\Http\Resources\WebTransactionResource;
 use App\Models\Webservice;
+use App\Repositories\Transactions\TransactionRepository;
 use App\Services\Transactions\CreateMobileTransaction;
 use App\Services\Transactions\CreatePosTransaction;
 use App\Services\Transactions\CreateWebTransaction;
@@ -22,15 +24,19 @@ class TransactionController extends Controller
 
     public $mobileTransaction;
 
+    private $transactionRepository;
+
     public function __construct(
         CreatePosTransaction $posTransaction,
         CreateMobileTransaction $createMobileTransaction,
-        CreateWebTransaction $createWebTransaction
+        CreateWebTransaction $createWebTransaction,
+        TransactionRepository $transactionRepository
     )
     {
         $this->posTransaction = $posTransaction;
         $this->mobileTransaction = $createMobileTransaction;
         $this->webTransaction = $createWebTransaction;
+        $this->transactionRepository = $transactionRepository;
     }
 
     public function createPosTransaction(TransactionRequest $request)
@@ -61,6 +67,17 @@ class TransactionController extends Controller
         return ResponseTool::response(
             201,
             new WebTransactionResource($this->mobileTransaction->create($webservice,$amount))
+        );
+    }
+
+
+
+
+    public function transactions()
+    {
+        return ResponseTool::response(
+            200,
+            new LastMonthTransactionStatisticsResource($this->transactionRepository->getLastMonthStatistics())
         );
     }
 }

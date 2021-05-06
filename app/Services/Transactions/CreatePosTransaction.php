@@ -4,7 +4,7 @@
 namespace App\Services\Transactions;
 
 
-use App\Services\Transactions\Components\PosTransaction;
+use App\Services\Transactions\TransactionTypes\PosTransaction;
 
 class CreatePosTransaction extends TransactionService
 {

@@ -4,8 +4,9 @@
 namespace App\Services\Transactions;
 
 
-use App\Contracts\Transactions\Components\TransactionTypeInterface;
-use App\Contracts\Transactions\TransactionServiceInterface;
+
+use App\Contracts\Services\Transactions\Components\TransactionTypeInterface;
+use App\Contracts\Services\Transactions\TransactionServiceInterface;
 use App\Models\Webservice;
 
 class TransactionService implements TransactionServiceInterface

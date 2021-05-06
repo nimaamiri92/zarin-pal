@@ -23,7 +23,7 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
-            'amount' => random_int(100000,1000000),
+            'amount' => random_int(1000,200000),
             'type' => random_int(0,2),
             'webservice_id' => Webservice::factory()
         ];

@@ -4,7 +4,8 @@
 namespace App\Services\Webservices;
 
 
-use App\Contracts\Webservices\WebserviceServiceInterface;
+
+use App\Contracts\Services\Webservices\WebserviceServiceInterface;
 
 class WebserviceService implements WebserviceServiceInterface
 {

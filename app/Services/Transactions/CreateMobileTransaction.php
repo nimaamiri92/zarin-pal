@@ -4,7 +4,7 @@
 namespace App\Services\Transactions;
 
 
-use App\Services\Transactions\Components\MobileTransaction;
+use App\Services\Transactions\TransactionTypes\MobileTransaction;
 
 class CreateMobileTransaction extends TransactionService
 {

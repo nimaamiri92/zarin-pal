@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Services\Transactions\Components;
+namespace App\Services\Transactions\TransactionTypes;
 
 
-use App\Contracts\Transactions\Components\TransactionTypeInterface;
+use App\Contracts\Services\Transactions\Components\TransactionTypeInterface;
 use App\Models\Webservice;
 
 class PosTransaction implements TransactionTypeInterface
