@@ -26,19 +26,9 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function create(array $attributes)
-    {
-        return $this->model->create($attributes);
-    }
-
     public function insertOrIgnore(array $attribute)
     {
         $this->model->insertOrIgnore($attribute);
-    }
-
-    public function update(array $attributes, int $id): bool
-    {
-        return $this->find($id)->update($attributes);
     }
 
     public function all($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc')

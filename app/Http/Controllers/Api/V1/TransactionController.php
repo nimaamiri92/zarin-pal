@@ -7,13 +7,12 @@ use App\Http\Requests\TransactionRequest;
 use App\Http\Resources\LastMonthTransactionStatisticsResource;
 use App\Http\Resources\PosTransactionResource;
 use App\Http\Resources\WebTransactionResource;
-use App\Models\Webservice;
 use App\Repositories\Transactions\TransactionRepository;
+use App\Repositories\Webservices\WebserviceRepository;
 use App\Services\Transactions\CreateMobileTransaction;
 use App\Services\Transactions\CreatePosTransaction;
 use App\Services\Transactions\CreateWebTransaction;
 use App\Tools\ResponseTool;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransactionController extends Controller
 {
@@ -24,46 +23,56 @@ class TransactionController extends Controller
 
     public $mobileTransaction;
 
-    private $transactionRepository;
+    public $transactionRepository;
+
+    public $webserviceRepository;
 
     public function __construct(
         CreatePosTransaction $posTransaction,
         CreateMobileTransaction $createMobileTransaction,
         CreateWebTransaction $createWebTransaction,
-        TransactionRepository $transactionRepository
+        TransactionRepository $transactionRepository,
+        WebserviceRepository $webserviceRepository,
     )
     {
         $this->posTransaction = $posTransaction;
         $this->mobileTransaction = $createMobileTransaction;
         $this->webTransaction = $createWebTransaction;
         $this->transactionRepository = $transactionRepository;
+        $this->webserviceRepository = $webserviceRepository;
     }
 
+    //we get transaction number one because The Test(in pdf) doesn't specify
+    // we should create transactions for which one of Webservices
     public function createPosTransaction(TransactionRequest $request)
     {
         $amount = $request->get('amount');
-        $webservice = Webservice::query()->get()->first();
+        $webservice = $this->webserviceRepository->find(1);
         return ResponseTool::response(
             200,
             new PosTransactionResource($this->posTransaction->create($webservice,$amount))
         );
     }
 
+
+    //we get transaction number one because The Test(in pdf) doesn't specify
+    // we should create transactions for which one of Webservices
     public function createWebTransaction(TransactionRequest $request)
     {
         $amount = $request->get('amount');
-        $webservice = Webservice::query()->get()->first();
+        $webservice = $this->webserviceRepository->find(1);
         return ResponseTool::response(
             200,
             new WebTransactionResource($this->webTransaction->create($webservice,$amount))
         );
     }
 
-
+    //we get transaction number one because The Test(in pdf) doesn't specify
+    // we should create transactions for which one of Webservices
     public function createMobileTransaction(TransactionRequest $request)
     {
         $amount = $request->get('amount');
-        $webservice = Webservice::query()->get()->first();
+        $webservice = $this->webserviceRepository->find(1);
         return ResponseTool::response(
             201,
             new WebTransactionResource($this->mobileTransaction->create($webservice,$amount))
